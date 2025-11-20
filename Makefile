@@ -1,4 +1,4 @@
-APP_NAME=pgmoreno
+APP_NAME=santiago
 STACK_FILE=stack.yml
 
 build:

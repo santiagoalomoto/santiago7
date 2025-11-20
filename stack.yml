@@ -1,23 +1,23 @@
 version: "3.8"
 
 services:
-  pgmoreno:
+  santiago:
     image: ghcr.io/santiagoalomoto/santiago7:latest
     build: .
     deploy:
       replicas: 1
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.pgmoreno.entrypoints=http"
-        - "traefik.http.routers.pgmoreno.rule=Host(`pgmoreno.byronrm.com`)"
-        - "traefik.http.middlewares.pgmoreno-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.routers.pgmoreno.middlewares=pgmoreno-https-redirect"
-        - "traefik.http.routers.pgmoreno-secure.entrypoints=https"
-        - "traefik.http.routers.pgmoreno-secure.rule=Host(`pgmoreno.byronrm.com`)"
-        - "traefik.http.routers.pgmoreno-secure.tls=true"
-        - "traefik.http.routers.pgmoreno-secure.tls.certresolver=http"
-        - "traefik.http.routers.pgmoreno-secure.service=pgmoreno"
-        - "traefik.http.services.pgmoreno.loadbalancer.server.port=80"
+        - "traefik.http.routers.santiago.entrypoints=http"
+        - "traefik.http.routers.santiago.rule=Host(`santiago.byronrm.com`)"
+        - "traefik.http.middlewares.santiago-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.santiago.middlewares=santiago-https-redirect"
+        - "traefik.http.routers.santiago-secure.entrypoints=https"
+        - "traefik.http.routers.santiago-secure.rule=Host(`santiago.byronrm.com`)"
+        - "traefik.http.routers.santiago-secure.tls=true"
+        - "traefik.http.routers.santiago-secure.tls.certresolver=http"
+        - "traefik.http.routers.santiago-secure.service=santiago"
+        - "traefik.http.services.santiago.loadbalancer.server.port=80"
         - "traefik.docker.network=traefik-public"
     networks:
       - traefik-public
