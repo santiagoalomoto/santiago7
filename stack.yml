@@ -8,16 +8,26 @@ services:
       replicas: 1
       labels:
         - "traefik.enable=true"
+
+        # Router HTTP
         - "traefik.http.routers.santiago.entrypoints=http"
         - "traefik.http.routers.santiago.rule=Host(`santiago.byronrm.com`)"
+
+        # Redirección HTTP → HTTPS
         - "traefik.http.middlewares.santiago-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.routers.santiago.middlewares=santiago-https-redirect"
+
+        # Router HTTPS seguro
         - "traefik.http.routers.santiago-secure.entrypoints=https"
         - "traefik.http.routers.santiago-secure.rule=Host(`santiago.byronrm.com`)"
         - "traefik.http.routers.santiago-secure.tls=true"
         - "traefik.http.routers.santiago-secure.tls.certresolver=http"
         - "traefik.http.routers.santiago-secure.service=santiago"
+
+        # Puerto interno del contenedor
         - "traefik.http.services.santiago.loadbalancer.server.port=80"
+
+        # Red pública de traefik
         - "traefik.docker.network=traefik-public"
     networks:
       - traefik-public
