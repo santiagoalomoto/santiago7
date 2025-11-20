@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   pgmoreno:
-    image: pgmoreno:latest
+    image: ghcr.io/santiagoalomoto/santiago7:latest
     build: .
     deploy:
       replicas: 1
