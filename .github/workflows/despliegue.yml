@@ -83,28 +83,21 @@ jobs:
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_SSH_PORT }}   
         script: |
-          echo "✅ desplegando servicios"
-          cd ~/deploy
-
-          echo "📥 descargando la imagen desde GHCR"
+          echo "📥 Login en GHCR"
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u santiagoalomoto --password-stdin
 
+          echo "📦 Descargando imagen"
           docker pull ghcr.io/santiagoalomoto/santiago7:latest
 
-          echo "🔄 redeploy..."
-          docker compose down
-          docker compose up -d
-
-          echo "🚀 Deploy completado"
-
-          echo "deteniendo los servicios {stack}"
+          echo "🛑 Deteniendo stack"
           docker stack rm santiago || true
 
-          echo "Esperar 20 segundos..."
+          echo "⏳ Esperando 20 segundos"
           sleep 20
 
-          echo "Desplegando el stack o los servicios"
+          echo "🚀 Desplegando stack"
+          cd ~/deploy
           docker stack deploy --with-registry-auth -c stack.yml santiago
 
+          echo "📋 Contenedores activos:"
           docker ps
-
